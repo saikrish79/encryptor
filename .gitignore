@@ -24,5 +24,7 @@ go.work.sum
 # env file
 .env
 
-.mod
-.sum
+*.mod
+*.sum
+
+.DS_Store

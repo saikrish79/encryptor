@@ -77,7 +77,7 @@ func encryptFile(filePath string, key []byte) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	//defer file.Close()
 
 	outputFile, err := os.Create(filePath+".enc")
 	if err != nil {
@@ -173,7 +173,8 @@ func encryptFile(filePath string, key []byte) error {
 			return err
 		}
 	}
-
+		// Closing file before deleting it
+		file.Close()
 		//fmt.Println("HMAC - ", mac.Sum(nil))
 		err = os.Remove(filePath)
 		if err != nil {
@@ -323,6 +324,8 @@ func decryptFile(filePath string, key []byte) error {
 	}
 
 	// Remove the encrypted file if decryption and integrity check succeed
+	// Closing file before deleting it
+	file.Close()
 	err = os.Remove(filePath)
 	if err != nil {
 		return fmt.Errorf("error while removing encrypted file: %v", err)
